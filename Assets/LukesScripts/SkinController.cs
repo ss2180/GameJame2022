@@ -50,7 +50,6 @@ public class SkinController : MonoBehaviour
     };
 
 
-    [SerializeField] private SpriteRenderer spriteRenderer;
     private void Start()
     {
         ChangeSkin(0);
@@ -63,14 +62,24 @@ public class SkinController : MonoBehaviour
 
     public void ChangeSkin(int index)
     {
+        if (BlobPrime.instance == null)
+            return;
+
         skinIndex = index;
-        spriteRenderer.color = CurrentSkin.color;
+        for (int i = 0; i < BlobPrime.instance.particles.Count; i++)
+        {
+            BlobPrime.instance.particles[i].GetComponent<SpriteRenderer>().color = CurrentSkin.color;
+        }
     }
 
-    public void Merge(Color col, float blendStrength = 0.3f)
+    public void Merge(GameObject hit, Color col, float blendStrength = 0.3f)
     {
-        var newColor = Color.Lerp(spriteRenderer.color, col, blendStrength);
-        spriteRenderer.color = newColor;
+        for (int i = 0; i < BlobPrime.instance.particles.Count; i++)
+        {
+            var renderer = hit.GetComponent<SpriteRenderer>();
+            var newColor = Color.Lerp(renderer.color, col, blendStrength);
+            renderer.color = newColor;
+        }
     }
 
 

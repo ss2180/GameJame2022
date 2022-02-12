@@ -17,9 +17,9 @@ public class SkinAbosrber : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Particle"))
         {
-            SkinController.instance.Merge(spriteRenderer.color, absorbsionStrength);
+            SkinController.instance.Merge(collision.gameObject, spriteRenderer.color, absorbsionStrength);
         }
     }
 
