@@ -135,6 +135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: 5
+  maxVelocity: 10
+  maxAngularVelocity: 60
   body: {fileID: 724962169230953076}
 --- !u!114 &724962169230953075
 MonoBehaviour:

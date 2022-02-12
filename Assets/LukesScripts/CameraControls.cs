@@ -6,6 +6,8 @@ public class CameraControls : MonoBehaviour
 {
     public GameObject player;
     public Camera camera;
+    public Camera fluidCam;
+    public GameObject fluidView;
 
     [SerializeField] private float cameraZoom;
     public float zoom {
@@ -14,13 +16,15 @@ public class CameraControls : MonoBehaviour
         }
         set {
             var val = value;
-            if (val <= 1)
-                val = 1;
+            if (val <= 5)
+                val = 5;
             else if (val >= 11.5f)
                 val = 11.5f;
 
             Debug.Log("Changing zoom");
             camera.orthographicSize = val;
+            fluidCam.orthographicSize = val;
+            fluidView.transform.localScale = new Vector3(val * 2, val * 2, 1);
             cameraZoom = val;
         }
     }

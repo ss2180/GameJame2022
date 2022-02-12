@@ -10,6 +10,8 @@ public class BlobPrime : MonoBehaviour
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
 
+    private List<GameObject> particles = new List<GameObject>();
+
     Vector2 movement;
 
     // Start is called before the first frame update
@@ -26,7 +28,7 @@ public class BlobPrime : MonoBehaviour
             }
             else
             {
-                Instantiate(particle, pos, gameObject.transform.rotation);
+                particles.Add(Instantiate(particle, pos, gameObject.transform.rotation));
             }
         }
     }
@@ -34,7 +36,7 @@ public class BlobPrime : MonoBehaviour
     void SpawnParticle()
     {
         Vector3 pos = gameObject.transform.position;
-        Instantiate(particle, pos, gameObject.transform.rotation);
+        particles.Add(Instantiate(particle, pos, gameObject.transform.rotation));
     }
 
 
@@ -47,7 +49,10 @@ public class BlobPrime : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            SpawnParticle();
+            for (int i = 0; i < 10; i++)
+            {
+                SpawnParticle();
+            }
         }
     }
 
