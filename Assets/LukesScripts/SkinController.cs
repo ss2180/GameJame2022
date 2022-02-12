@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class SkinController : MonoBehaviour
 {
+
+    public static SkinController instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
+
     [SerializeField] private int currentSkinIndex = 2;
     public int skinIndex {
         get {
@@ -55,6 +66,13 @@ public class SkinController : MonoBehaviour
         skinIndex = index;
         spriteRenderer.color = CurrentSkin.color;
     }
+
+    public void Merge(Color col, float blendStrength = 0.3f)
+    {
+        var newColor = Color.Lerp(spriteRenderer.color, col, blendStrength);
+        spriteRenderer.color = newColor;
+    }
+
 
 }
 
