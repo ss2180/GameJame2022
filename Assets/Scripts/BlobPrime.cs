@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class BlobPrime : MonoBehaviour
 {
+    public static BlobPrime instance;
+    
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
+
     public int particleCount = 5;
     public GameObject particle;
 
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
 
-    private List<GameObject> particles = new List<GameObject>();
+    public List<GameObject> particles = new List<GameObject>();
 
     Vector2 movement;
 

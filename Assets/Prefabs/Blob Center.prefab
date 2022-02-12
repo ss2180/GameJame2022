@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5195550907774379189}
   - component: {fileID: 5195550907774379187}
   - component: {fileID: 5195550907774379184}
+  - component: {fileID: -4490305676698395950}
   m_Layer: 0
   m_Name: Blob Center
   m_TagString: Player
@@ -121,3 +122,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-4490305676698395950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5195550907774379188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 390e7967ce921d2429fa9447d58990eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSkinIndex: 2
+  skins:
+  - color: {r: 0.34901962, g: 0.17254902, b: 0.105882354, a: 1}
+  - color: {r: 0.49803922, g: 0.7529412, b: 0.8980392, a: 1}
+  - color: {r: 0.06666667, g: 0.44313726, b: 0.1882353, a: 1}
+  - color: {r: 0.7647059, g: 0.49803922, b: 0.8980392, a: 1}
+  - color: {r: 0.7882353, g: 0.7529412, b: 0.7254902, a: 1}
+  - color: {r: 1, g: 1, b: 1, a: 1}
+  spriteRenderer: {fileID: 0}
