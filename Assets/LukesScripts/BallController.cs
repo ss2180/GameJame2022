@@ -5,11 +5,15 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     public float force = 5f;
+    public float maxVelocity = 10f;
+    public float maxAngularVelocity = 60f;
     public Rigidbody2D body;
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
+        body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity);
+        body.angularVelocity = Mathf.Clamp(body.angularVelocity, -maxAngularVelocity, maxAngularVelocity);
+
         if (Input.anyKey)
             Move();
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class SkinAbosrber : MonoBehaviour
 {
 
+    [SerializeField] private float absorbsionStrength = 0.3f;
     private SpriteRenderer spriteRenderer;
     private Color baseColor;
 
@@ -18,7 +19,7 @@ public class SkinAbosrber : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            SkinController.instance.Merge(spriteRenderer.color);
+            SkinController.instance.Merge(spriteRenderer.color, absorbsionStrength);
         }
     }
 
