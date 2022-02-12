@@ -6,7 +6,7 @@ public class Particle : MonoBehaviour
 {
     private SpriteRenderer sprite;
     private GameObject player;
-    private Rigidbody2D rb; 
+    private Rigidbody rb; 
 
     // Start is called before the first frame update
     void Start()
@@ -14,7 +14,7 @@ public class Particle : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         sprite.color = Color.green;
 
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
 
         player = GameObject.FindGameObjectWithTag("Player");
     }

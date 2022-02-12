@@ -21,8 +21,8 @@ public class BlobPrime : MonoBehaviour
         {
             Vector3 pos = gameObject.transform.position + new Vector3(Random.Range(-3.0f, 3.0f), Random.Range(-3.0f, 3.0f), 0);
 
-
-            if (Physics2D.OverlapCircle(pos, particle.transform.localScale.x / 2))
+            
+            if (Physics.CheckSphere(pos, particle.transform.localScale.x / 2))
             {
                 i--;
             }
