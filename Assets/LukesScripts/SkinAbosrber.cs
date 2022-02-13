@@ -15,7 +15,7 @@ public class SkinAbosrber : MonoBehaviour
         baseColor = spriteRenderer.color;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Particle"))
         {
