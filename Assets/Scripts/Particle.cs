@@ -6,7 +6,9 @@ public class Particle : MonoBehaviour
 {
     private SpriteRenderer sprite;
     private GameObject player;
-    private Rigidbody rb; 
+    private Rigidbody rb;
+
+    public float constant = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,6 @@ public class Particle : MonoBehaviour
     {
         Vector2 force = player.transform.position - gameObject.transform.position;
 
-        rb.AddForce(force.normalized);
+        rb.AddForce(force.normalized * constant);
     }
 }

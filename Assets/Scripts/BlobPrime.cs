@@ -43,7 +43,7 @@ public class BlobPrime : MonoBehaviour
         }
     }
 
-    void SpawnParticle()
+    public void SpawnParticle()
     {
         Vector3 pos = gameObject.transform.position;
         particles.Add(Instantiate(particle, pos, gameObject.transform.rotation));
