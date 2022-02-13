@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,22 +8,21 @@ public class BasicAI : MonoBehaviour
     public GradedPath navAgent;
     public float speed = 5f;
     public Vector3 nextPoint = Vector3.zero;
-    private int currentPoint = -1;
+    public int currentPoint = -1;
     public bool reachedDestination = false;
 
     public bool useRandomPosition = true;
 
+    public int failAttemptLimit = 100;
+    private int failedAttempts = 0;
+
+    public Action<Vector3> pointReached;
+
     private void Start()
     {
-        StartCoroutine(WaitForNavigationGrid());
-    }
-
-    IEnumerator WaitForNavigationGrid()
-    {
-        yield return new WaitUntil(() => navAgent.grid.ready);
-
         Execute();
     }
+
 
     void Execute()
     {
@@ -30,10 +30,10 @@ public class BasicAI : MonoBehaviour
         Vector3 destination = navAgent.dest;
         if (useRandomPosition)
         {
-            destination = new Vector3(Random.Range(0, navAgent.grid.cells.x), 0, Random.Range(0, navAgent.grid.cells.y));
+            destination = new Vector3(UnityEngine.Random.Range(0, Grid.instance.cells.x), UnityEngine.Random.Range(0, Grid.instance.cells.y), 0);
             while (!navAgent.IsValidAt((int)destination.x, (int)destination.y, 0))
             {
-                destination = new Vector3(Random.Range(0, navAgent.grid.cells.x), 0, Random.Range(0, navAgent.grid.cells.y));
+                destination = new Vector3(UnityEngine.Random.Range(0, Grid.instance.cells.x), 0, UnityEngine.Random.Range(0, Grid.instance.cells.y));
             }
         }
 
@@ -53,13 +53,21 @@ public class BasicAI : MonoBehaviour
 
     public void MoveToDestination()
     {
+        if (failedAttempts >= failAttemptLimit) {
+            Debug.LogError($"{gameObject.name} failed {failedAttempts} times to find a successful path!");
+            Spawner.instance.Despawn(gameObject);
+            return;
+        }
+
         navAgent.CalculatePath();
         if(!navAgent.PathWasSuccessful())
         {
             //Debug.LogError("Failed to find a successful route to the destination");
+            failedAttempts++;
             Execute();
             return;
         }
+        failedAttempts = 0;
         StartCoroutine(MoveAgent(0));
     }
 
@@ -77,6 +85,7 @@ public class BasicAI : MonoBehaviour
         currentPoint = openIndex;
         GridCell next = navAgent.open[openIndex];
         nextPoint = next.position;
+        pointReached?.Invoke(next.position);
         yield return new WaitUntil(() => Vector3.Distance(transform.position, nextPoint) < 1f);
         StartCoroutine(MoveAgent(openIndex + 1));
     }

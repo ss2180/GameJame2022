@@ -7,8 +7,6 @@ using UnityEngine;
 //https://dotnetcoretutorials.com/2020/07/25/a-search-pathfinding-algorithm-in-c/
 public class GradedPath : MonoBehaviour
 {
-    public Grid grid;
-
     private enum PathStatus
     {
         VALID, INVALID, FAILED
@@ -29,16 +27,16 @@ public class GradedPath : MonoBehaviour
 
     public void CalculatePath()
     {
-        if(!grid.ready)
+        if(!Grid.instance.ready)
         {
             Debug.LogError($"[{gameObject.name}] Navigation grid is not ready!");
             return;
         }
 
         if (src.x < 0 || src.y < 0 || src.z < 0 || dest.x < 0 || dest.y < 0 || dest.z < 0 ||
-            src.x >= grid.cells.x || src.y >= grid.cells.y || src.z >= grid.cells.z || dest.x >= grid.cells.x || dest.y >= grid.cells.y || dest.z >= grid.cells.z)
+            src.x >= Grid.instance.cells.x || src.y >= Grid.instance.cells.y || src.z >= Grid.instance.cells.z || dest.x >= Grid.instance.cells.x || dest.y >= Grid.instance.cells.y || dest.z >= Grid.instance.cells.z)
         {
-            Debug.LogError($"[{gameObject.name}] Source or destination out of bounds!\nSource: " + src + "\nDestination: " + dest + "\nGrid: " + grid.cells);
+            Debug.LogWarning($"[{gameObject.name}] Source or destination out of bounds!\nSource: " + src + "\nDestination: " + dest + "\nGrid: " + Grid.instance.cells);
             return;
         }
 
@@ -60,13 +58,13 @@ public class GradedPath : MonoBehaviour
 
     void ScoreGrid()
     {
-        for (int x = 0; x < grid.cells.x; x++)
+        for (int x = 0; x < Grid.instance.cells.x; x++)
         {
-            for (int y = 0; y < grid.cells.y; y++)
+            for (int y = 0; y < Grid.instance.cells.y; y++)
             {
-                for (int z = 0; z < grid.cells.z; z++)
+                for (int z = 0; z < Grid.instance.cells.z; z++)
                 {
-                    grid.grid[x, y, z].SetDistance(dest);
+                    Grid.instance.grid[x, y, z].SetDistance(dest);
                 }
             }
         }
@@ -93,10 +91,8 @@ public class GradedPath : MonoBehaviour
     bool CalculateValidPath()
     {
         GridCell next = FindNeighbour(GetGridCellAt((int)src.x, (int)src.y, (int)src.z));
-        Debug.Log("Found neighbour: " + (next != null) + " @ " + (int)src.x + ", " + (int)src.y + ", " + (int)src.z);
         if (next == null)
         {
-            //Debug.LogError($"[{gameObject.name}] Failed to find valid path.");
             pathStatus = PathStatus.FAILED;
             return false;
         }
@@ -159,15 +155,15 @@ public class GradedPath : MonoBehaviour
 
     public GridCell GetGridCellAt(int x, int y, int z)
     {
-        if (x < 0 || y < 0 || z < 0 || x >= grid.cells.x || y >= grid.cells.y || z >= grid.cells.z)
+        if (x < 0 || y < 0 || z < 0 || x >= Grid.instance.cells.x || y >= Grid.instance.cells.y || z >= Grid.instance.cells.z)
             return null;
 
-        return grid.grid[x, y, z];
+        return Grid.instance.grid[x, y, z];
     }
 
     public bool IsValidAt(int x, int y, int z)
     {
-        return grid.grid[x, y, z].flag.Equals(GridCell.GridFlag.WALKABLE);
+        return Grid.instance.grid[x, y, z].flag.Equals(GridCell.GridFlag.WALKABLE);
     }
 
     public bool PathWasSuccessful()
@@ -177,21 +173,27 @@ public class GradedPath : MonoBehaviour
 
     public Vector3 PositionAsGridCoordinates()
     {
-        var x = Mathf.RoundToInt(transform.position.x / grid.cellSize.x);
-        var y = Mathf.RoundToInt(transform.position.y / grid.cellSize.y);
-        var z = Mathf.RoundToInt(transform.position.z / grid.cellSize.z);
+        var x = Mathf.RoundToInt(transform.position.x / Grid.instance.cellSize.x);
+        var y = Mathf.RoundToInt(transform.position.y / Grid.instance.cellSize.y);
+        var z = Mathf.RoundToInt(transform.position.z / Grid.instance.cellSize.z);
         return new Vector3(x, y, z);
     }
 
     private void OnDrawGizmos()
     {
-        if(grid.drawAllPaths)
+        if (Grid.instance == null)
+            return;
+
+        if (Grid.instance.drawAllPaths)
             DrawPathGizmo();
     }
 
     private void OnDrawGizmosSelected()
     {
-        if(!grid.drawAllPaths)
+        if (Grid.instance == null)
+            return;
+
+        if(!Grid.instance.drawAllPaths)
             DrawPathGizmo();
     }
 
