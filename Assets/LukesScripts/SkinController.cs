@@ -57,7 +57,7 @@ public class SkinController : MonoBehaviour
 
     private void Start()
     {
-        ChangeSkin(0);
+
     }
 
     private void OnValidate()

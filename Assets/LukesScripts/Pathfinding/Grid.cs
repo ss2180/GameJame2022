@@ -57,6 +57,8 @@ public class Grid : MonoBehaviour
         }
     }
 
+
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if(grid != null)
@@ -92,6 +94,7 @@ public class Grid : MonoBehaviour
             }
         }
     }
+#endif
 }
 
 [System.Serializable]

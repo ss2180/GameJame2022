@@ -41,6 +41,17 @@ public class BlobPrime : MonoBehaviour
                 particles.Add(Instantiate(particle, pos, gameObject.transform.rotation));
             }
         }
+        StartCoroutine(WaitAndUpdateColor());
+    }
+
+    IEnumerator WaitAndUpdateColor()
+    {
+        yield return new WaitForSeconds(0.25f);
+        var skin = 2;
+        if (PlayerPrefs.HasKey("Skin"))
+            skin = PlayerPrefs.GetInt("Skin");
+
+        SkinController.instance.ChangeSkin(skin);
     }
 
     public void SpawnParticle()

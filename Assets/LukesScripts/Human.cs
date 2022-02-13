@@ -29,7 +29,6 @@ public class Human : MonoBehaviour
 
     void Kill()
     {
-        Debug.Log("Killing");
         for (int i = 0; i < UnityEngine.Random.Range(3, 10); i++)
         {
             BlobPrime.instance.SpawnParticle();

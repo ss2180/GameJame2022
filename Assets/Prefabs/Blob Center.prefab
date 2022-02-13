@@ -51,6 +51,7 @@ MonoBehaviour:
     type: 3}
   moveSpeed: 5
   rb: {fileID: 5195550907774379187}
+  particles: []
 --- !u!50 &5195550907774379187
 Rigidbody2D:
   serializedVersion: 4
@@ -112,7 +113,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 785b05681cb1f0b4394c04da0852aa34, type: 3}
-  m_Color: {r: 0.7264151, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.7264151, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -142,4 +143,3 @@ MonoBehaviour:
   - color: {r: 0.7647059, g: 0.49803922, b: 0.8980392, a: 1}
   - color: {r: 0.7882353, g: 0.7529412, b: 0.7254902, a: 1}
   - color: {r: 1, g: 1, b: 1, a: 1}
-  spriteRenderer: {fileID: 0}
