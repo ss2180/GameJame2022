@@ -24,7 +24,7 @@ public class CameraControls : MonoBehaviour
             Debug.Log("Changing zoom");
             camera.orthographicSize = val;
             fluidCam.orthographicSize = val;
-            fluidView.transform.localScale = new Vector3(val * 2, val * 2, 1);
+            fluidView.transform.localScale = new Vector3(((val * 2) / 9f) * 16, val * 2, 1);
             cameraZoom = val;
         }
     }

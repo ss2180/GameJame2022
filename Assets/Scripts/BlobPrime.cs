@@ -59,7 +59,7 @@ public class BlobPrime : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 250; i++)
             {
                 SpawnParticle();
             }
